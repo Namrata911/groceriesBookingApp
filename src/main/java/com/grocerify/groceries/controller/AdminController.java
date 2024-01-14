@@ -32,18 +32,21 @@ public class AdminController {
     }
 
     @DeleteMapping("/remove-grocery-item/{itemId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> removeGroceryItem(@PathVariable Long itemId) {
         adminService.removeGroceryItem(itemId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/update-grocery-item/{itemId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GroceryItem> updateGroceryItem(@PathVariable Long itemId, @RequestBody GroceryItem updatedItem) {
         GroceryItem updated = adminService.updateGroceryItem(itemId, updatedItem);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
         //TODO : write service for this
     @PatchMapping("/manage-inventory/{itemId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> manageInventory(@PathVariable Long itemId, @RequestParam int quantity) {
         adminService.manageInventory(itemId, quantity);
         return new ResponseEntity<>(HttpStatus.OK);
