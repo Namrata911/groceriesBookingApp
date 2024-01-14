@@ -5,6 +5,7 @@ import com.grocerify.groceries.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +18,14 @@ public class AdminController {
     private AdminService adminService;
 
     @PostMapping("/add-grocery-item")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GroceryItem> addGroceryItem(@RequestBody GroceryItem groceryItem) {
         GroceryItem addedItem = adminService.addGroceryItem(groceryItem);
         return new ResponseEntity<>(addedItem, HttpStatus.CREATED);
     }
 
     @GetMapping("/view-grocery-items")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<GroceryItem>> viewGroceryItems() {
         List<GroceryItem> groceryItems = adminService.viewGroceryItems();
         return new ResponseEntity<>(groceryItems, HttpStatus.OK);
