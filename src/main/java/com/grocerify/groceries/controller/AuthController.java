@@ -9,14 +9,15 @@ import java.util.stream.Collectors;
 import com.grocerify.groceries.model.Role;
 import com.grocerify.groceries.model.RoleEnum;
 import com.grocerify.groceries.model.User;
-import com.grocerify.groceries.payload.request.LoginRequest;
-import com.grocerify.groceries.payload.request.SignupRequest;
-import com.grocerify.groceries.payload.response.JwtResponse;
-import com.grocerify.groceries.payload.response.MessageResponse;
+import com.grocerify.groceries.security.payload.request.LoginRequest;
+import com.grocerify.groceries.security.payload.request.SignupRequest;
+import com.grocerify.groceries.security.payload.response.JwtResponse;
+import com.grocerify.groceries.security.payload.response.MessageResponse;
 import com.grocerify.groceries.repository.RoleRepository;
 import com.grocerify.groceries.repository.UserRepository;
 import com.grocerify.groceries.security.jwt.JwtUtils;
 import com.grocerify.groceries.security.service.UserDetailsImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -52,7 +53,7 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser( @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser( @Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -73,7 +74,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(  @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser( @Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()

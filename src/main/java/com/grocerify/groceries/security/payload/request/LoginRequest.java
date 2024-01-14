@@ -1,4 +1,4 @@
-package com.grocerify.groceries.payload.request;
+package com.grocerify.groceries.security.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
 

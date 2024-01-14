@@ -1,4 +1,4 @@
-package com.grocerify.groceries.payload.response;
+package com.grocerify.groceries.security.payload.response;
 
 
 import java.util.List;
