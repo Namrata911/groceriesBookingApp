@@ -19,14 +19,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/view-available-grocery-items")
+    @GetMapping("/groceryitem")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<GroceryItem>> viewAvailableGroceryItems() {
         List<GroceryItem> availableItems = userService.viewAvailableGroceryItems();
         return new ResponseEntity<>(availableItems, HttpStatus.OK);
     }
 
-    @PostMapping("/create-order")
+    @PostMapping("/order")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Order> createOrder(@RequestBody List<OrderItem> orderItems) {
         Order order = userService.createOrder(orderItems);

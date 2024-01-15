@@ -17,35 +17,35 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/add-grocery-item")
+    @PostMapping("/groceryitem")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GroceryItem> addGroceryItem(@RequestBody GroceryItem groceryItem) {
         GroceryItem addedItem = adminService.addGroceryItem(groceryItem);
         return new ResponseEntity<>(addedItem, HttpStatus.CREATED);
     }
 
-    @GetMapping("/view-grocery-items")
+    @GetMapping("/groceryitem")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<GroceryItem>> viewGroceryItems() {
         List<GroceryItem> groceryItems = adminService.viewGroceryItems();
         return new ResponseEntity<>(groceryItems, HttpStatus.OK);
     }
 
-    @DeleteMapping("/remove-grocery-item/{itemId}")
+    @DeleteMapping("/groceryitem/{itemId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> removeGroceryItem(@PathVariable Long itemId) {
         adminService.removeGroceryItem(itemId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/update-grocery-item/{itemId}")
+    @PutMapping("/groceryitem/{itemId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GroceryItem> updateGroceryItem(@PathVariable Long itemId, @RequestBody GroceryItem updatedItem) {
         GroceryItem updated = adminService.updateGroceryItem(itemId, updatedItem);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
-        //TODO : write service for this
-    @PatchMapping("/manage-inventory/{itemId}")
+
+    @PatchMapping("/groceryitem/inventory/{itemId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> manageInventory(@PathVariable Long itemId, @RequestParam int quantity) {
         adminService.manageInventory(itemId, quantity);

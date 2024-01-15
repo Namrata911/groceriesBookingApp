@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
     @Autowired
     private GroceryItemRepository groceryItemRepository;
 
@@ -27,29 +27,26 @@ public class AdminServiceImpl implements AdminService{
     }
 
     public GroceryItem updateGroceryItem(Long itemId, GroceryItem updatedItem) {
-        // Implement update logic based on your requirements
-        // Fetch the existing grocery item from the repository
         Optional<GroceryItem> existingItemOptional = groceryItemRepository.findById(itemId);
-
         if (existingItemOptional.isPresent()) {
-            // If the item exists, update its fields
             GroceryItem existingItem = existingItemOptional.get();
-
-            // Update the fields with new values from the updatedItem
             existingItem.setName(updatedItem.getName());
             existingItem.setPrice(updatedItem.getPrice());
-            // Update other fields as needed
-
-            // Save the updated item back to the repository
-           return groceryItemRepository.save(existingItem);
+            return groceryItemRepository.save(existingItem);
         } else {
-            // Handle the case where the item with the given ID is not found
             throw new ItemNotFoundException("Grocery item not found with ID: " + itemId);
         }
-
     }
 
     public void manageInventory(Long itemId, int quantity) {
-        // Implement inventory management logic based on your requirements
+        Optional<GroceryItem> existingItemOptional = groceryItemRepository.findById(itemId);
+        if (existingItemOptional.isPresent()) {
+            GroceryItem existingItem = existingItemOptional.get();
+            existingItem.setQuantityInStock(quantity);
+            groceryItemRepository.save(existingItem);
+        } else {
+            throw new ItemNotFoundException("Grocery item not found with ID: " + itemId);
+        }
+
     }
 }

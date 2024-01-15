@@ -3,6 +3,11 @@ package com.grocerify.groceries.security.payload.request;
 import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
+    public LoginRequest(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     @NotBlank
     private String username;
 
