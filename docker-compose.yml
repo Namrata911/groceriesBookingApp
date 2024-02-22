@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: SpringPassword@1234
+      MYSQL_DATABASE: grocery_app
+      MYSQL_USER: app1
+      MYSQL_PASSWORD: root1234
+    command: [ "--init-file", "/docker-entrypoint-initdb.d/init.sql" ]
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  spring-boot-app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/grocery_app
+      SPRING_DATASOURCE_USERNAME: app1
+      SPRING_DATASOURCE_PASSWORD: root1234

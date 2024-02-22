@@ -1,2 +1,0 @@
-SELECT 'Executing data.sql';
-INSERT INTO user (username, email, password) VALUES ('adminUsername', 'admin@example.com', '{bcrypt}$2a$10$6ByuBuRRsqP7rBVCu9jCcuH8FgSR3nT5PnVq6jYDDq2dGBum/zwjm'),('userName', 'user@example.com', '{bcrypt}$2a$10$6ByuBuRRsqP7rBVCu9jCcuH8FgSR3nT5PnVq6jYDDq2dGBum/zwjm');
